@@ -5,17 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ListModel extends Model
+class Recipe extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'user_id'
+        'list_id',
+        'recipe_name'
     ];
 
-    public function recipes()
-    {
-        return $this->hasMany(Recipe::class);
-    }
 }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ListModel;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ListController extends Controller
+class RecipeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ListController extends Controller
      */
     public function index()
     {
-        return ListModel::all();
+        return Recipe::all();
     }
 
     /**
@@ -27,11 +27,11 @@ class ListController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required', 
-                               
+            'recipe_name' => 'required',
+
         ]);
 
-        return ListModel::create($request->all());
+        return Recipe::create($request->all());
     }
 
     /**
@@ -42,33 +42,17 @@ class ListController extends Controller
      */
     public function show($id)
     {
-        $list = ListModel::find($id);
-        if ( $list->id == Auth::user()->id) {
+        $list = Recipe::find($id);
+        if ($list->id == Auth::user()->id) {
             return $list;
-        }
-        else {
+        } else {
             return response()->json([
                 "message" => "not correct user"
             ], 401);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $list = ListModel::find($id);
-        $list->update($request->all());
-       
-
-        return $list;
-    }
-
+   
     /**
      * Remove the specified resource from storage.
      *
@@ -77,7 +61,7 @@ class ListController extends Controller
      */
     public function destroy($id)
     {
-       return ListModel::destroy($id); 
+        return Recipe::destroy($id);
     }
 
     /**
@@ -86,8 +70,8 @@ class ListController extends Controller
      * @param  str  $name
      * @return \Illuminate\Http\Response
      */
-    public function search($title)
+    public function search($recipe_name)
     {
-       return ListModel::where('title', 'like', '%'.$title.'%')->get(); 
+        return Recipe::where('title', 'like', '%' . $recipe_name . '%')->get();
     }
 }
