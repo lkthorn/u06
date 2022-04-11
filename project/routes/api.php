@@ -39,6 +39,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('lists/recipe/{id}', [RecipeController::class, 'destroy']);
     Route::get('/lists/recipe/search/{recipe_name}', [RecipeController::class, 'search']);
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    $lists = \App\Models\ListModel::with('recipes')->get;
+
+    return view('lists.index', compact('lists'));
+    
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

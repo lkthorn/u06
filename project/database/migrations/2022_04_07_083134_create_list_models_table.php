@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('list_models', function (Blueprint $table) {
             $table->id();
             $table->string ('title');
-            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('user_id')->nullable();
             $table->timestamps();
         });
     }
