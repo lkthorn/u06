@@ -1,3 +1,4 @@
+import { AccountService } from './../shared/account.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-account.component.css']
 })
 export class CreateAccountComponent implements OnInit {
+  account = {
+    name: '',
+    email: '',
+    password: ''
+  };
 
-  constructor() { }
+  constructor(
+    private accountService: AccountService
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
+  async onSubmit() {
+    try {
+      const result = await this.accountService.createAccount(this.account);
+
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

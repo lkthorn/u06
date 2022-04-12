@@ -47,7 +47,7 @@ class AuthController extends Controller
         //Check password
         if(!$user || !Hash::check($fields['password'], $user->password)) {
             return response([
-                'message' => 'Not authorized'
+                'message' => 'Unauthorized'
             ]);
         }
         
